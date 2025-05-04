@@ -90,11 +90,13 @@ class User extends Model
 
     public function user_events()
     {
-        return $this->belongsToMany(Event::class,'event_volunteers');
+        return $this->belongsToMany(Event::class,'event_volunteers')
+        ->where('status', 'attend');
     }
 
     public function user_tasks()
     {
-        return $this->belongsToMany(Task::class,'task_volunteers');
+        return $this->belongsToMany(Task::class,'task_volunteers')
+        ->where('status', 'attend');
     }
 }
