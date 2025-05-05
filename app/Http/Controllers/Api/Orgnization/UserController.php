@@ -62,7 +62,8 @@ class UserController extends Controller
         $orgnization = $request->user();
         $users = User::where('role', 'user')
         ->where('orgnization_id', $orgnization->id)
-        ->with(['country:name,id', 'city:name,id', 'user_papers','orgnization'])->get();
+        ->with(['country:name,id', 'city:name,id', 'user_papers','orgnization'
+        , 'tasks', 'events'])->get();
         $data =[
             'users' => $users,
         ];
