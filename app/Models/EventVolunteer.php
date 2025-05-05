@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventVolunteer extends Model
 {
-
-
     protected $fillable = [
         'event_id',
         'user_id',
         'role',
         'hours',
+        'qr_code',
         'status',
     ];
 
