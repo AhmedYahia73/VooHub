@@ -116,7 +116,7 @@ class OperationController extends Controller
     {
         $Validation = Validator::make($request->all(), [
             'status' => 'required|in:accepted,rejected,lost,attend',
-            'event_id' => 'required|exists:events,id'
+            'event_id' => 'required|exists:events,id',
         ]);
         if ($Validation->fails()) {
             return response()->json([
@@ -163,7 +163,8 @@ class OperationController extends Controller
 
     public function changeTaskVolunteerStatus(Request $request, $volunteerId){
         $validation = Validator::make($request->all(), [
-            'status' => 'required|in:accepted,rejected,lost,attend'
+            'status' => 'required|in:accepted,rejected,lost,attend',
+            'event_id' => 'required|exists:events,id',
         ]);
         if ($validation->fails()) {
             return response()->json([
