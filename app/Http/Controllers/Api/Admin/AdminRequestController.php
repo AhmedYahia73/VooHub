@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class AdminRequestController extends Controller
 {
@@ -31,7 +33,12 @@ class AdminRequestController extends Controller
             return response()->json(['message' => 'Request not found'], 404);
         }
         $requestData->status = 'accepted';
+        $qrImage = QrCode::format('png')->size(200)->generate('model_request_' . $id);
+        $fileName = 'user/events_qr/' . $id . rand(0, 10000) . '.png';
+        Storage::disk('public')->put($fileName, $qrImage);
+        $requestData->qr_code = $fileName;
         $requestData->save();
+
         return response()->json(['message' => 'Request status updated successfully'], 200);
     }
 

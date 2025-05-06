@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('task_volunteers', function (Blueprint $table) {
+        Schema::table('requests', function (Blueprint $table) {
             $table->string('qr_code')->nullable();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('task_volunteers', function (Blueprint $table) {
+        Schema::table('requests', function (Blueprint $table) {
             //
         });
     }

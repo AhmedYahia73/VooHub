@@ -11,8 +11,6 @@ use App\Models\Task;
 use App\Models\TaskVolunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Illuminate\Support\Facades\Storage;
 
 class OperationController extends Controller
 {
@@ -138,11 +136,6 @@ class OperationController extends Controller
         if($request->status == 'accepted'){
             $volunteerRecord->event->number_of_volunteers -= 1;
             $volunteerRecord->event->save();
-            $qrImage = QrCode::format('png')->size(200)->generate('event_volunter_' . $volunteerRecord->id);
-            $fileName = 'user/events_qr/' . $volunteerRecord->id . rand(0, 10000) . '.png';
-            Storage::disk('public')->put($fileName, $qrImage);
-            $volunteerRecord->qr_code = $fileName;
-            $volunteerRecord->save();
         }
 
         if($request->status == 'attend'){
@@ -184,11 +177,6 @@ class OperationController extends Controller
             if($request->status == 'accepted'){
                 $volunteerRecord->task->number_of_voo_needed -= 1;
                 $volunteerRecord->task->save();
-                $qrImage = QrCode::format('png')->size(200)->generate('task_volunter_' . $volunteerRecord->id);
-                $fileName = 'user/events_qr/' . $volunteerRecord->id . rand(0, 10000) . '.png';
-                Storage::disk('public')->put($fileName, $qrImage);
-                $volunteerRecord->qr_code = $fileName;
-                $volunteerRecord->save();
             }
             if($request->status == 'attend'){
                 $volunteerRecord->user->total_hours += $volunteerRecord->task->task_hours;
