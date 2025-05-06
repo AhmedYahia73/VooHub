@@ -288,7 +288,7 @@ public function getEventShakwat($eventId){
 }
 
     public function ReadTaskSuggest($taskId){
-        $taskSuggest = Suggest::where('task_id', $taskId)->first();
+        $taskSuggest = Suggest::where('id', $taskId)->first();
             if($taskSuggest){
                 $taskSuggest->status = 'read';
                 $taskSuggest->save();
@@ -306,7 +306,7 @@ public function getEventShakwat($eventId){
     }
 
     public function ReadEventSuggest($eventId){
-        $eventSuggest = Suggest::where('event_id', $eventId)->first();
+        $eventSuggest = Suggest::where('id', $eventId)->first();
             if($eventSuggest){
                 $eventSuggest->status = 'read';
                 $eventSuggest->save();
