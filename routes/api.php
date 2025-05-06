@@ -195,6 +195,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::get('/user/eventsAndTasks', [HomePageController::class, 'getEventsAndTaks']);
 
         Route::get('/user/historyRequests',[HistoryController::class,'getHistoryAttend']);
+        Route::get('/user/upcomingEvents',[HistoryController::class,'events']);
+        Route::get('/user/upcomingTasks',[HistoryController::class,'tasks']);
 
         Route::get('/user/pendingApproved',[RequestListController::class,'PendingApproved']);
 

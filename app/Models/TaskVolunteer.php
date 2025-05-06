@@ -13,7 +13,13 @@ class TaskVolunteer extends Model
         'user_id',
         'status',
         'hours',
+        'qr_code',
     ];
+    protected $appends = ['qr_code_link'];
+
+    public function getQrCodeLinkAttribute(){
+        return url('storage/' . $this->qr_code);
+    }
 
     public function task()
     {

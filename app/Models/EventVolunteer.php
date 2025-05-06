@@ -14,6 +14,11 @@ class EventVolunteer extends Model
         'qr_code',
         'status',
     ];
+    protected $appends = ['qr_code_link'];
+
+    public function getQrCodeLinkAttribute(){
+        return url('storage/' . $this->qr_code);
+    }
 
     protected $hidden = [
         'created_at',

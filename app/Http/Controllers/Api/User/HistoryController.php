@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
 
+use App\Models\EventVolunteer;
+use App\Models\TaskVolunteer;
+
 class HistoryController extends Controller
 {
 
@@ -69,5 +72,49 @@ class HistoryController extends Controller
         return response()->json(['historyLost' => $historyLost], 200);
     }
 
+    public function events(Request $request){
+        // /api/user/upcomingEvents
+        $events = EventVolunteer::
+        with('event')
+        ->where('user_id', $request->user()->id)
+        ->where('status', 'accepted')
+        ->get()
+        ->map(function($item){
+            return [
+                'qr_code' => $item->qr_code_link,
+                'event' => $item?->event?->name,
+                'date' => $item?->event?->date,
+                'start_time' => $item?->event?->start_time,
+                'end_time' => $item?->event?->end_time,
+                'event_id' => $item?->event?->name,
+            ];
+        });
 
+        return response()->json([
+            'events' => $events,
+        ]);
+    }
+
+    public function tasks(Request $request){
+        // /api/user/upcomingTasks
+        $events = TaskVolunteer::
+        with('task')
+        ->where('user_id', $request->user()->id)
+        ->where('status', 'accepted')
+        ->get()
+        ->map(function($item){
+            return [
+                'qr_code' => $item->qr_code_link,
+                'event' => $item?->event?->name,
+                'date' => $item?->event?->date,
+                'start_time' => $item?->event?->start_time,
+                'end_time' => $item?->event?->end_time,
+                'event_id' => $item?->event?->name,
+            ];
+        });
+
+        return response()->json([
+            'events' => $events,
+        ]);
+    }
 }
