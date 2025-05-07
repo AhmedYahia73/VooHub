@@ -258,13 +258,22 @@ class AuthenticationController extends Controller
         ]);
     }
 
-
     public function logout(Request $request)
     {
         $user = $request->user();
         $user->tokens()->delete();
         return response()->json([
             'message' => 'User successfully logged out',
+        ]);
+    }
+
+    public function delete_account(Request $request){
+        // api/user/delete_account
+        User::where('id', $request->user()->id)
+        ->delete();
+
+        return response()->json([
+            'success' => 'You delete account success'
         ]);
     }
 }

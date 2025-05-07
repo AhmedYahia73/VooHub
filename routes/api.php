@@ -186,6 +186,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
     Route::middleware((['auth:sanctum','IsUser']))->group(function () {
 
+        Route::post('user/delete_account', [AuthenticationController::class, 'delete_account']);
+
         Route::get('/user/profile', [AuthenticationController::class, 'userProfile']);
 
         Route::put('/user/profile/update', [AuthenticationController::class, 'editUserProfile']);
