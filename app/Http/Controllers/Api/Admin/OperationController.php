@@ -277,8 +277,8 @@ class OperationController extends Controller
         }
 }
 
-public function ReadTaskSuggest($taskId){
-    $taskSuggest = Suggest::where('task_id', $taskId)->first();
+public function ReadTaskSuggest($id){
+    $taskSuggest = Suggest::where('id', $id)->first();
         if($taskSuggest){
             $taskSuggest->status = 'read';
             $taskSuggest->save();
@@ -295,8 +295,8 @@ public function ReadTaskSuggest($taskId){
     }
 }
 
-public function ReadEventSuggest($eventId){
-    $eventSuggest = Suggest::where('event_id', $eventId)
+public function ReadEventSuggest($id){
+    $eventSuggest = Suggest::where('id', $id)
     ->first();
         if($eventSuggest){
             $eventSuggest->status = 'read';
