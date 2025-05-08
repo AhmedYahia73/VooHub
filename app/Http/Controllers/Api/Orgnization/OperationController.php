@@ -232,7 +232,8 @@ public function getEventShakwat($eventId){
                 'user:id,name,email,phone',
                 'task:id,name,orgnization_id',
                 'task.orgnization:id,name,email,phone'
-            ])->get();
+            ])
+            ->get();
         if ($taskShakwa) {
             return response()->json([
                 'message' => 'Task shakwat retrieved successfully',
@@ -253,7 +254,9 @@ public function getEventShakwat($eventId){
                 'user:id,name,email,phone',
                 'event:id,name,orgnization_id',
                 'event.orgnization:id,name,email,phone'
-            ])->get();
+            ])
+            ->where('status', 'unread')
+            ->get();
         if ($eventSuggest) {
             return response()->json([
                 'message' => 'Event suggest retrieved successfully',
@@ -274,7 +277,9 @@ public function getEventShakwat($eventId){
                 'user:id,name,email,phone',
                 'task:id,name,orgnization_id',
                 'task.orgnization:id,name,email,phone'
-            ])->get();
+            ])
+            ->where('status', 'unread')
+            ->get();
         if ($taskSuggest) {
             return response()->json([
                 'message' => 'Task suggest retrieved successfully',
