@@ -184,8 +184,6 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 
 
-Route::get('/user/eventsAndTasks', [HomePageController::class, 'getEventsAndTaks']);
-
     Route::middleware((['auth:sanctum','IsUser']))->group(function () {
 
         Route::post('user/delete_account', [AuthenticationController::class, 'delete_account']);
@@ -196,6 +194,7 @@ Route::get('/user/eventsAndTasks', [HomePageController::class, 'getEventsAndTaks
 
         Route::post('/logout', [AuthenticationController::class, 'logout']);
 
+        Route::get('/user/eventsAndTasks', [HomePageController::class, 'getEventsAndTaks']);
 
         Route::get('/user/historyRequests',[HistoryController::class,'getHistoryAttend']);
         Route::get('/user/upcomingEvents',[HistoryController::class,'events']);
