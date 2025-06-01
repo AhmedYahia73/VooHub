@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->nullable()->unique();
             $table->date('birth')->nullable();
-            $table->enum('gender', ['male', 'female']);
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->integer('total_hours')->default(0);
             $table->integer('total_events')->default(0);
             $table->string('avatar_image')->nullable();

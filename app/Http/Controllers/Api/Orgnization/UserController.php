@@ -88,7 +88,7 @@ class UserController extends Controller
             'phone' => 'required',
             'password' => 'required|min:8',
             'bithdate' => 'nullable|date',
-            'gender' => 'required|in:male,female',
+            'gender' => 'in:male,female',
         ]);
 
         if ($validation->fails()) {
