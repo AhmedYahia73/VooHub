@@ -24,7 +24,7 @@ class AuthenticationController extends Controller
         'city_id' => 'required|exists:cities,id',
         'name' => 'required|string',
         'email' => 'required|email',
-        'phone' => 'required',
+        'phone' => 'sometimes',
         'password' => 'required|min:8',
         'bithdate' => 'nullable|date',
         'gender' => 'in:male,female',
@@ -49,7 +49,7 @@ class AuthenticationController extends Controller
                 'city_id' => $request->city_id,
                 'name' => $request->name,
                 'email' => $request->email,
-                'phone' => $request->phone,
+                'phone' => $request->phone ?? null,
                 'password' => Hash::make($request->password),
                 'bithdate' => $request->bithdate,
                 'gender' => $request->gender,
@@ -76,7 +76,7 @@ class AuthenticationController extends Controller
         'city_id' => $request->city_id,
         'name' => $request->name,
         'email' => $request->email,
-        'phone' => $request->phone,
+        'phone' => $request->phone ?? null,
         'password' => Hash::make($request->password),
         'bithdate' => $request->bithdate,
         'gender' => $request->gender,
@@ -130,8 +130,7 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'email' => 'nullable|email|exists:users,email',
-            'phone' => 'nullable|exists:users,phone',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8',
         ]);
 
@@ -140,7 +139,6 @@ class AuthenticationController extends Controller
         }
 
         $user = User::where('email', $request->email)
-            ->orWhere('phone', $request->phone)
             ->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
