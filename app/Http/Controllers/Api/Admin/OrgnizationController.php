@@ -81,7 +81,7 @@ class OrgnizationController extends Controller
         ]);
     }
 
-    public function status(Request $request){
+    public function status(Request $request, $id){
         $validation = Validator::make($request->all(), [
             'account_status' => 'required|in:active,inactive',
         ]);
