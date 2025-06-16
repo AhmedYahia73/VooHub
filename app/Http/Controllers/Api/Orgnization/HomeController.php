@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Orgnization;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Country;
 use App\Models\City;
 use App\Models\Task;
 use App\Models\User;
@@ -12,7 +13,7 @@ use App\Models\User;
 class HomeController extends Controller
 {
     public function __construct(private User $user, private City $city,
-    private Task $task){}
+    private Task $task, private Country $country){}
 
     public function view(Request $request){
         $users = $this->user
@@ -55,6 +56,13 @@ class HomeController extends Controller
             ->where('account_status', 'active');
         }])
         ->get();
+        $country = $this->country
+        ->withCount(['users' => function($query) use($request){
+            $query->where('orgnization_id', $request->user()->orgnization_id)
+            ->where('role', 'user')
+            ->where('account_status', 'active');
+        }])
+        ->get();
 
         return response()->json([
             'users_count' => $users_count,
@@ -63,6 +71,7 @@ class HomeController extends Controller
             'ended_tasks_count' => $ended_tasks_count,
             'user_year' => $user_year,
             'cities' => $cities->sortByDesc('users_count')->values(),
+            'countries' => $country,
         ]);
     }
 }

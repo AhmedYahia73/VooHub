@@ -28,6 +28,11 @@ class Country extends Model
         return null;
     }
 
+    public function users()
+    {
+        return $this->hasMany(User::class, 'country_id');
+    }
+
     public function cities()
     {
         return $this->hasMany(City::class);
