@@ -46,7 +46,10 @@ class HomeController extends Controller
             'Dec' => $users->where('year', date('Y'))->where('month', 12)->count(),
         ];
         $cities = $this->city
-        ->withCount('users')
+        ->withCount(['users' => function($query){
+            $query->where('role', 'user')
+            ->where('account_status', 'active');
+        }])
         ->get();
 
         return response()->json([

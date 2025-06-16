@@ -50,7 +50,9 @@ class HomeController extends Controller
         ];
         $cities = $this->city
         ->withCount(['users' => function($query) use($request){
-            $query->where('orgnization_id', $request->user()->orgnization_id);
+            $query->where('orgnization_id', $request->user()->orgnization_id)
+            ->where('role', 'user')
+            ->where('account_status', 'active');
         }])
         ->get();
 
