@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\HomeController;
 use App\Http\Controllers\Api\Admin\AdminRequestController;
 use App\Http\Controllers\Api\Admin\BnyadmRequstController;
 use App\Http\Controllers\Api\Admin\EventController;
@@ -39,6 +40,9 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
     Route::middleware((['auth:sanctum','IsAdmin']))->group(function () {
 
         Route::get('/admin/profile', [AuthenticationController::class, 'userProfile']);
+
+///////////////////////////////////////////// Home //////////////////////////////////////////////////
+        Route::get('/admin/Home', [HomeController::class, 'view']);
 
 ///////////////////////////////////////////// Countries //////////////////////////////////////////////////
 

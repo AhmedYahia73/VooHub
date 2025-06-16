@@ -17,6 +17,10 @@ class City extends Model
         'updated_at',
     ];
 
+    public function users(){
+        return $this->hasMany(User::class, 'city_id');
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);

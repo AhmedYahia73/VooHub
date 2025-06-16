@@ -28,7 +28,7 @@ class User extends Model
         'role',
         'orgnization_id',
         'total_tasks'
-    ];
+    ]; 
 
     protected $hidden = [
         'password',
@@ -36,9 +36,18 @@ class User extends Model
     ];
 
     protected $appends = [
-        'avatar_image_link'
+        'avatar_image_link',
+        'month',
+        'year',
     ];
 
+    public function getMonthAttribute(){
+        return $this->created_at->format('m');
+    }
+
+    public function getYearAttribute(){
+        return $this->created_at->format('Y');
+    }
 
     public function getAvatarImageLinkAttribute(){
         if(isset($this->attributes['avatar_image'])){
