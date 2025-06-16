@@ -29,6 +29,7 @@ class OrgnizationController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'password' => 'required|min:8',
+            'account_status' => 'required|in:active,inactive',
         ]);
 
         if ($validation->fails()) {
@@ -41,6 +42,7 @@ class OrgnizationController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'account_status' => $request->account_status,
             'password' => Hash::make($request->password),
             'role' => 'organization',
         ]);
@@ -57,6 +59,7 @@ class OrgnizationController extends Controller
             'name' => 'nullable|string',
             'email' => 'nullable|email',
             'phone' => 'nullable',
+            'account_status' => 'nullable|in:active,inactive',
         ]);
 
         if ($validation->fails()) {
@@ -70,10 +73,28 @@ class OrgnizationController extends Controller
             'name' => $request->name?? $user->name,
             'email' => $request->email?? $user->email,
             'phone' => $request->phone?? $user->phone,
+            'account_status' => $request->account_status?? $user->account_status,
         ]);
 
         return response()->json([
             'message' => 'Orgnization updated successfully',
+        ]);
+    }
+
+    public function status(Request $request){
+        $validation = Validator::make($request->all(), [
+            'account_status' => 'required|in:active,inactive',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+        $user = User::findOrFail($id);
+        $user->update([
+            'account_status' => $request->account_status,
+        ]);
+        
+        return response()->json([
+            'success' => 'You change status successfully',
         ]);
     }
 

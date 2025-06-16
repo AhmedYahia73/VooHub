@@ -39,6 +39,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required',
+            'account_status' => 'required|in:active,inactive',
             'password' => 'required|min:8',
             'bithdate' => 'nullable|date',
             'gender' => 'in:male,female',
@@ -57,6 +58,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'birth' => $request->bithdate,
             'gender' => $request->gender,
+            'account_status' => $request->account_status,
             'role' => 'user',
         ]);
 
@@ -70,6 +72,7 @@ class UserController extends Controller
         $validation = Validator::make($request->all(), [
             'country_id' => 'nullable|exists:countries,id',
             'city_id' => 'nullable|exists:cities,id',
+            'account_status' => 'nullable|in:active,inactive',
             'name' => 'nullable|string',
             'email' => 'nullable|email',
             'phone' => 'nullable',
@@ -90,10 +93,28 @@ class UserController extends Controller
             'phone' => $request->phone?? $user->phone,
             'birth' => $request->bithdate?? $user->bith,
             'gender' => $request->gender?? $user->gender,
+            'account_status' => $request->account_status ?? $user->account_status,
         ]);
 
         return response()->json([
             'message' => 'User updated successfully',
+        ]);
+    }
+
+    public function status(Request $request){
+        $validation = Validator::make($request->all(), [
+            'account_status' => 'required|in:active,inactive',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+        $user = User::findOrFail($id);
+        $user->update([
+            'account_status' => $request->account_status,
+        ]);
+        
+        return response()->json([
+            'success' => 'You change status successfully',
         ]);
     }
 

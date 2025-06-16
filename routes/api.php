@@ -79,6 +79,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::get('/admin/users', [UserController::class, 'getUsers']);
 
+        Route::put('/admin/status/{id}', [UserController::class, 'status']);
+
         Route::get('/admin/user/{id}', [UserController::class, 'getUser']);
 
         Route::post('/admin/user/add', [UserController::class, 'addUser']);
@@ -94,6 +96,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::get('/admin/organization/{id}', [OrgnizationController::class, 'getOrgnizationById']);
 
         Route::post('/admin/organization/add', [OrgnizationController::class, 'addOrgnization']);
+
+        Route::put('/admin/organization/status/{id}', [OrgnizationController::class, 'status']);
 
         Route::put('/admin/organization/update/{id}', [OrgnizationController::class, 'updateOrgnization']);
 
