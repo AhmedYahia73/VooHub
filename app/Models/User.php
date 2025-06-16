@@ -42,11 +42,11 @@ class User extends Model
     ];
 
     public function getMonthAttribute(){
-        return $this->created_at->format('m');
+        return \Carbon\Carbon::parse($this->created_at)->format('m');
     }
 
     public function getYearAttribute(){
-        return $this->created_at->format('Y');
+        return \Carbon\Carbon::parse($this->created_at)->format('Y');
     }
 
     public function getAvatarImageLinkAttribute(){
