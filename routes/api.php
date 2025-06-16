@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\OrgnizationController;
 use App\Http\Controllers\Api\Admin\TaskController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\Auth\AuthenticationController;
+use App\Http\Controllers\Api\Orgnization\HomeController as HomeOrganizationController;
 use App\Http\Controllers\Api\Orgnization\BnyadmRequstController as OrgnizationBnyadmRequstController;
 use App\Http\Controllers\Api\Orgnization\EventController as OrgnizationEventController;
 use App\Http\Controllers\Api\Orgnization\LocationController as OrgnizationLocationController;
@@ -227,6 +228,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 
     Route::middleware((['auth:sanctum','IsOrgniazation']))->group(function () {
+
+        Route::get('/ornization/Home', [HomeOrganizationController::class, 'view']);
 
         Route::get('/ornization/profile', [OrgnizationUserController::class, 'OrnizationPrfile']);
 
