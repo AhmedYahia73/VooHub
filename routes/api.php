@@ -79,7 +79,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::get('/admin/users', [UserController::class, 'getUsers']);
 
-        Route::put('/admin/status/{id}', [UserController::class, 'status']);
+        Route::put('/admin/user/status/{id}', [UserController::class, 'status']);
 
         Route::get('/admin/user/{id}', [UserController::class, 'getUser']);
 
