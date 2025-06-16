@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminRequestController extends Controller
 {
-
-
     public function getAllRequest(){
         $request = ModelsRequest::
         where('status', 'pending')
