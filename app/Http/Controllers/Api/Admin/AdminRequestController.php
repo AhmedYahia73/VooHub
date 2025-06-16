@@ -13,7 +13,10 @@ class AdminRequestController extends Controller
 
 
     public function getAllRequest(){
-        $request = ModelsRequest::with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])->get();
+        $request = ModelsRequest::
+        where('status', 'pending')
+        ->with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])
+        ->get();
         return response()->json([
             'requests' => $request,
         ], 200);
@@ -33,7 +36,7 @@ class AdminRequestController extends Controller
             return response()->json(['message' => 'Request not found'], 404);
         }
         $requestData->status = 'accepted';
-        $qrImage = QrCode::format('png')->size(200)->generate('model_request_' . $id);
+        $qrImage = QrCode::format('png')->size(200)->generate('model_request-' . $id);
         $fileName = 'user/events_qr/' . $id . rand(0, 10000) . '.png';
         Storage::disk('public')->put($fileName, $qrImage);
         $requestData->qr_code = $fileName;
