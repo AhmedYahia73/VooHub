@@ -32,18 +32,18 @@ class HomeController extends Controller
         ->where('date', '<', date('Y-m-d'))
         ->count();
         $user_year = [
-            'Jan' => $users->where('year', date('Y'))->where('month', 1),
-            'Feb' => $users->where('year', date('Y'))->where('month', 2),
-            'Mar' => $users->where('year', date('Y'))->where('month', 3),
-            'Apr' => $users->where('year', date('Y'))->where('month', 4),
-            'May' => $users->where('year', date('Y'))->where('month', 5),
-            'June' => $users->where('year', date('Y'))->where('month', 6),
-            'July' => $users->where('year', date('Y'))->where('month', 7),
-            'Aug' => $users->where('year', date('Y'))->where('month', 8),
-            'Sep' => $users->where('year', date('Y'))->where('month', 9),
-            'Oct' => $users->where('year', date('Y'))->where('month', 10),
-            'Nov' => $users->where('year', date('Y'))->where('month', 11),
-            'Dec' => $users->where('year', date('Y'))->where('month', 12),
+            'Jan' => $users->where('year', date('Y'))->where('month', 1)->count(),
+            'Feb' => $users->where('year', date('Y'))->where('month', 2)->count(),
+            'Mar' => $users->where('year', date('Y'))->where('month', 3)->count(),
+            'Apr' => $users->where('year', date('Y'))->where('month', 4)->count(),
+            'May' => $users->where('year', date('Y'))->where('month', 5)->count(),
+            'June' => $users->where('year', date('Y'))->where('month', 6)->count(),
+            'July' => $users->where('year', date('Y'))->where('month', 7)->count(),
+            'Aug' => $users->where('year', date('Y'))->where('month', 8)->count(),
+            'Sep' => $users->where('year', date('Y'))->where('month', 9)->count(),
+            'Oct' => $users->where('year', date('Y'))->where('month', 10)->count(),
+            'Nov' => $users->where('year', date('Y'))->where('month', 11)->count(),
+            'Dec' => $users->where('year', date('Y'))->where('month', 12)->count(),
         ];
         $cities = $this->city
         ->withCount('users')
@@ -55,7 +55,7 @@ class HomeController extends Controller
             'current_tasks_count' => $current_tasks_count,
             'ended_tasks_count' => $ended_tasks_count,
             'user_year' => $user_year,
-            'cities' => $cities,
+            'cities' => $cities->sortByDesc('users_count'),
         ]);
     }
 }
