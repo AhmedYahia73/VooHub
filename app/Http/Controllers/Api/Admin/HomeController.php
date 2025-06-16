@@ -23,7 +23,7 @@ class HomeController extends Controller
         ->where('role', 'user')
         ->where('account_status', 'active')
         ->whereNotNull('orgnization_id')
-        ->get();
+        ->count();
         $users_count = $users->count();
         $current_tasks_count = $this->task
         ->where('date', '>=', date('Y-m-d'))
