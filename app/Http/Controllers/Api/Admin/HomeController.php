@@ -55,7 +55,7 @@ class HomeController extends Controller
             'current_tasks_count' => $current_tasks_count,
             'ended_tasks_count' => $ended_tasks_count,
             'user_year' => $user_year,
-            'cities' => $cities->sortByDesc('users_count'),
+            'cities' => $cities->sortByDesc('users_count')->values(),
         ]);
     }
 }
