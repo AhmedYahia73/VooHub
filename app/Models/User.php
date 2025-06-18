@@ -92,6 +92,11 @@ class User extends Model
         return $this->hasMany(Event::class,'orgnization_id');
     }
 
+    public function event_user()
+    {
+        return $this->belongsToMany(Event::class,'event_users');
+    }
+
     public function tasks()
     {
         return $this->hasMany(Task::class,'orgnization_id');
