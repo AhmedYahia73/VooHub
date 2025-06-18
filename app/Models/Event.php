@@ -26,7 +26,8 @@ class Event extends Model
         'image',
         'status',
         'event_hours',
-        'apply'
+        'apply',
+        'points'
     ];
 
     protected $hidden = [
@@ -35,7 +36,7 @@ class Event extends Model
     ];
 
     protected $appends = [
-        'image_link',
+        'image_link', 
     ];
 
     public function getImageLinkAttribute(){
@@ -43,6 +44,13 @@ class Event extends Model
             return asset('storage/'.$this->attributes['image']);
         }
         return null;
+    }
+
+    public function getpointsAttribute($data){
+        if (!empty($data)){
+            return json_decode($data);
+        }
+        return $data;
     }
 
     public function country()
