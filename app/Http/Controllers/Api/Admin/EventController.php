@@ -25,7 +25,7 @@ class EventController extends Controller
             'event_requirments:id,event_id,requirment,status',
             'event_volunteers:id,event_id,role,user_id',
             'event_volunteers.user:id,name,email,phone',
-            'orgnization'
+            'orgnization',
         ])
             ->get();
         $data = [

@@ -46,7 +46,7 @@ class EventRequest extends FormRequest
                 'requirment.*'=> ['nullable', 'array'],
                 'requirment.*.requirment' => ['nullable', 'string'],
                 'requirment.*.status' => ['nullable', 'in:active,inactive'],
-                'points' => ['nullable', 'array'],
+                'points' => ['required', 'array'],
             ];
         }
         return [
@@ -71,7 +71,7 @@ class EventRequest extends FormRequest
             'requirment.*'=> ['required', 'array'],
             'requirment.*.requirment' => ['required', 'string'],
             'requirment.*.status' => ['required', 'in:active,inactive'],                
-            'points' => ['nullable', 'array'],
+            'points' => ['required', 'array'],
         ];
     }
     public function failedValidation(Validator $validator)
