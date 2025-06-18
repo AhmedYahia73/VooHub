@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Events\UsersEvent;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\EventUser;
 
