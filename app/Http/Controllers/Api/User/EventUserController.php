@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Events\UsersEvent;
 
 use App\Models\EventUser;
 
@@ -18,6 +19,16 @@ class EventUserController extends Controller
         if($Validation->fails()){
             return response()->json($Validation->errors(),422);
         }
-        
+
+        $user_id = $request->user()->id;
+        $user_count = EventUser::
+        where('event_id', $request->event_id)
+        ->count();
+        broadcast(new UsersEvent($user_count, $request->user_location,
+        $user_id, $request->event_id));
+
+        return response()->json([
+            'success' => 'You add data success'
+        ]);
     }
 }

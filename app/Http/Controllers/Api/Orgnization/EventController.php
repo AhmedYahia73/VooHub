@@ -80,7 +80,7 @@ class EventController extends Controller
                 'description' => $request->description,
                 'image' => $this->storeBase64Image($request->image, 'events/images'),
                 'status' => $request->status,
-                'points' => empty($request->points) ?? json_encode($request->points),
+                'points' =>  json_encode($request->points),
             ]);
 
             foreach ($request->benfit as $benefit) {
@@ -143,7 +143,7 @@ class EventController extends Controller
                 'description' => $request->description ?? $event->description,
                 'image' => $request->image ? $this->storeBase64Image($request->image, 'events/images') : $event->image,
                 'status' => $request->status ?? $event->status,
-                'points' => empty($request->points) ?? json_encode($request->points),
+                'points' =>  json_encode($request->points),
             ]);
 
             // ✅ Delete old benefits and insert new ones

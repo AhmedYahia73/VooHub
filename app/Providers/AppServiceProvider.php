@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Events\UserLocationUpdated;
+use App\Events\UsersEvent;
 use App\Listeners\UpdateUserLocationInDB;
 use Illuminate\Support\Facades\Event;
 
@@ -22,6 +22,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen(UserLocationUpdated::class, UpdateUserLocationInDB::class);
+        Event::listen(UsersEvent::class, UpdateUserLocationInDB::class);
     }
 }
