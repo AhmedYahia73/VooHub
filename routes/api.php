@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\User\HomePageController;
 use App\Http\Controllers\Api\User\LocationController as UserLocationController;
 use App\Http\Controllers\Api\User\RequestListController;
 use App\Http\Controllers\Api\User\ShakwaController;
+use App\Http\Controllers\Api\User\EventUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -202,6 +203,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::put('/user/profile/update', [AuthenticationController::class, 'editUserProfile']);
 
         Route::post('/logout', [AuthenticationController::class, 'logout']);
+
+        Route::post('/user/attend_event', [EventUserController::class, 'user_location']);
 
         Route::get('/user/eventsAndTasks', [HomePageController::class, 'getEventsAndTaks']);
 
