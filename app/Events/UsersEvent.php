@@ -17,6 +17,7 @@ class UsersEvent implements ShouldBroadcast
     public $user_count;
     public $user_stauts;
     public $user_id;
+    public $event_id;
     /**
      * Create a new event instance.
      */

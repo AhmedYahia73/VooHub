@@ -27,7 +27,7 @@ class UpdateUserLocationInDB
         $user = User::where('id', $event->user_id)
         ->first();
         $user->event_user()->detach($event->event_id);
-        if ($event->user_location) {
+        if ($event->user_stauts) {
             $user->event_user()->attach($event->event_id);
         }
     }
