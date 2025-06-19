@@ -57,9 +57,9 @@ class EventController extends Controller
     }
 
 
-    public function addEvent(EventRequest $request, Request $rrequest)
+    public function addEvent(EventRequest $request)
     {
-        $orgnizationId = $rrequest->user()->id;
+        $orgnizationId = $request->user()->id;
         DB::beginTransaction();
 
         try {
