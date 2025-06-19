@@ -263,8 +263,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::delete('/ornization/task/delete/{id}', [OrgnizationTaskController::class, 'deleteTask']);
 
         Route::get('/ornization/event', [OrgnizationEventController::class, 'getEvents']);
-
-        Route::get('/ornization/users_event/{id}', [OrgnizationEventController::class, 'users_event']);
+        
+        Route::get('/ornization/users_event/{id}', [EventController::class, 'users_event']);
 
         Route::get('/ornization/event/{id}', [OrgnizationEventController::class, 'getEventById']);
 
