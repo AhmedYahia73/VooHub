@@ -104,7 +104,7 @@ class EventController extends Controller
             'event_volunteers.user:id,name,email,phone'
         ])
         ->find($id);
-        
+
         $users_count = EventUser::where('event_id', $id)
         ->count(); 
 
@@ -211,9 +211,5 @@ class EventController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-    }
-
-    public function users_event(Request $request, $id){
-   
     }
 }

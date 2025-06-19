@@ -9,6 +9,8 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\EventUser;
+
 class EventController extends Controller
 {
     use Image;
