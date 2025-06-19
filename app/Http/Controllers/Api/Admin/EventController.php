@@ -103,13 +103,19 @@ class EventController extends Controller
             'event_volunteers:id,event_id,role,user_id',
             'event_volunteers.user:id,name,email,phone'
         ])
-            ->find($id);
+        ->find($id);
+        
+        $users_count = EventUser::where('event_id', $id)
+        ->count(); 
 
         if (!$event) {
             return response()->json(['message' => 'Event not found'], 404);
         }
 
-        return response()->json($event);
+        return response()->json([
+            'event' => $event,
+            'users_count' => $users_count,
+        ]);
     }
 
 
@@ -208,11 +214,6 @@ class EventController extends Controller
     }
 
     public function users_event(Request $request, $id){
-        $users_count = EventUser::where('event_id', $id)
-        ->count();
-
-        return response()->json([
-            'users_count' => $users_count
-        ]);
+   
     }
 }

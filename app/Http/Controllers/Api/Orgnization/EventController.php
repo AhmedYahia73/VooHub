@@ -47,13 +47,18 @@ class EventController extends Controller
             'event_volunteers.user:id,name,email,phone',
             'orgnization'
         ])
-            ->find($id);
+            ->find($id); 
+        $users_count = EventUser::where('event_id', $id)
+        ->count(); 
 
         if (!$event) {
             return response()->json(['message' => 'Event not found'], 404);
         }
 
-        return response()->json($event);
+        return response()->json([
+            'event' => $event,
+            'users_count' => $users_count,
+        ]);
     }
 
     public function addEvent(EventRequest $request)
