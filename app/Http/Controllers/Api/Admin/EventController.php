@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\EventUser;
+
 class EventController extends Controller
 {
     use Image;
@@ -203,5 +205,14 @@ class EventController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function users_event(Request $request, $id){
+        $users_count = EventUser::where('event_id', $id)
+        ->count();
+
+        return response()->json([
+            'users_count' => $users_count
+        ]);
     }
 }

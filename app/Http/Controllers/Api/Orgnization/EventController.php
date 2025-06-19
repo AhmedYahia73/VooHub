@@ -56,7 +56,6 @@ class EventController extends Controller
         return response()->json($event);
     }
 
-
     public function addEvent(EventRequest $request)
     {
         $orgnizationId = $request->user()->id;
