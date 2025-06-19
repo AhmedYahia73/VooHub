@@ -111,8 +111,6 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::get('/admin/event/{id}', [EventController::class, 'getEventById']);
 
-        Route::get('/admin/users_event/{id}', [EventController::class, 'users_event']);
-
         Route::post('/admin/event/add', [EventController::class, 'addEvent']);
 
         Route::put('/admin/event/update/{id}', [EventController::class, 'updateEvent']);
@@ -263,8 +261,6 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::delete('/ornization/task/delete/{id}', [OrgnizationTaskController::class, 'deleteTask']);
 
         Route::get('/ornization/event', [OrgnizationEventController::class, 'getEvents']);
-        
-        Route::get('/ornization/users_event/{id}', [EventController::class, 'users_event']);
 
         Route::get('/ornization/event/{id}', [OrgnizationEventController::class, 'getEventById']);
 
