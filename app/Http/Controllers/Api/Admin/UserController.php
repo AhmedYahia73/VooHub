@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -37,8 +38,8 @@ class UserController extends Controller
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
             'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|unique:users,phone',
             'account_status' => 'required|in:active,inactive',
             'password' => 'required|min:8',
             'bithdate' => 'nullable|date',
@@ -74,8 +75,8 @@ class UserController extends Controller
             'city_id' => 'nullable|exists:cities,id',
             'account_status' => 'nullable|in:active,inactive',
             'name' => 'nullable|string',
-            'email' => 'nullable|email',
-            'phone' => 'nullable',
+            'email' => ['nullable', 'email', Rule::unique('users')->ignore($id)],
+            'phone' => ['nullable', Rule::unique('users')->ignore($id),],
             'bithdate' => 'nullable|date',
             'gender' => 'nullable|in:male,female',
         ]);

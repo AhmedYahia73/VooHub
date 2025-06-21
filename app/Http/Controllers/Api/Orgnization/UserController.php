@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -30,8 +31,8 @@ class UserController extends Controller
         $user = $request->user();
         $validation = Validator::make($request->all(), [
             'name' => 'nullable|string',
-            'email' => 'nullable|email',
-            'phone' => 'nullable',
+            'email' => ['nullable', 'email', Rule::unique('users')->ignore($request->user()->id)],
+            'phone' => ['nullable', Rule::unique('users')->ignore($request->user()->id),],
             'password' => 'nullable|min:8',
             'avatar_image'=> 'nullable'
         ]);
@@ -84,8 +85,8 @@ class UserController extends Controller
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
             'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|unique:users,phone',
             'password' => 'required|min:8',
             'bithdate' => 'nullable|date',
             'gender' => 'in:male,female',

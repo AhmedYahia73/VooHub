@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class OrgnizationController extends Controller
 {
@@ -24,8 +25,8 @@ class OrgnizationController extends Controller
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
             'name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|unique:users,phone',
             'password' => 'required|min:8',
             'account_status' => 'required|in:active,inactive',
         ]);
@@ -55,8 +56,8 @@ class OrgnizationController extends Controller
             'country_id' => 'nullable|exists:countries,id',
             'city_id' => 'nullable|exists:cities,id',
             'name' => 'nullable|string',
-            'email' => 'nullable|email',
-            'phone' => 'nullable',
+            'email' => ['nullable', 'email', Rule::unique('users')->ignore($id)],
+            'phone' => ['nullable', Rule::unique('users')->ignore($id),],
             'account_status' => 'nullable|in:active,inactive',
         ]);
 
