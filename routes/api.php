@@ -248,6 +248,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::post('/ornization/user/add', [OrgnizationUserController::class, 'addUser']);
 
+        Route::delete('/ornization/user/update/{id}', [OrgnizationUserController::class, 'updateUser']);
+        
         Route::delete('/ornization/user/delete/{id}', [OrgnizationUserController::class, 'deleteUser']);
 
         Route::get('/ornization/task', [OrgnizationTaskController::class, 'getOrgnizationTasks']);

@@ -115,6 +115,39 @@ class UserController extends Controller
         ]);
     }
 
+    public function updateUser(Request $request, $id){
+        $validation = Validator::make($request->all(), [
+            'country_id' => 'nullable|exists:countries,id',
+            'city_id' => 'nullable|exists:cities,id',
+            'account_status' => 'nullable|in:active,inactive',
+            'name' => 'nullable|string',
+            'email' => ['nullable', 'email', Rule::unique('users')->ignore($id)],
+            'phone' => ['nullable', Rule::unique('users')->ignore($id),],
+            'bithdate' => 'nullable|date',
+            'gender' => 'nullable|in:male,female',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'country_id' => $request->country_id?? $user->country_id,
+            'city_id' => $request->city_id?? $user->city_id,
+            'name' => $request->name?? $user->name,
+            'email' => $request->email?? $user->email,
+            'phone' => $request->phone?? $user->phone,
+            'birth' => $request->bithdate?? $user->bith,
+            'gender' => $request->gender?? $user->gender,
+            'account_status' => $request->account_status ?? $user->account_status,
+        ]);
+
+        return response()->json([
+            'message' => 'User updated successfully',
+        ]);
+    }
+
     public function deleteUser($id){
         $user = User::find($id);
         $user->delete();
