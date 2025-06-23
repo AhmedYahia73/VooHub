@@ -145,7 +145,7 @@ class TaskController extends Controller
             'start_time'=>$request->start_time ?? $task->start_time,
             'number_of_voo_needed'=>$request->number_of_voo_needed ?? $task->number_of_voo_needed,
             'status'=>$request->status ?? $task->status,
-            'image'=> $request->image ? $this->storeBase64Image($request->image, 'Orgnization/tasks/image') : $task->image,
+            'image'=> !empty($request->image) ? $this->storeBase64Image($request->image, 'Orgnization/tasks/image') : $task->image,
             'location'=>$request->location ?? $task->location,
             'google_map_location'=>$request->google_map_location ?? $task->google_map_location,
         ]);

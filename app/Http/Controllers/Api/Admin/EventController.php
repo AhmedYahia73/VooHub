@@ -145,7 +145,7 @@ class EventController extends Controller
             'location' => $request->location ?? $event->location,
             'google_maps_location' => $request->google_maps_location ?? $event->google_maps_location,
             'description' => $request->description ?? $event->description,
-            'image' => $request->image ? $this->storeBase64Image($request->image, 'events/images') : $event->image,
+            'image' => !empty($request->image) ? $this->storeBase64Image($request->image, 'events/images') : $event->image,
             'status' => $request->status ?? $event->status,
             'points' =>  json_encode($request->points),
         ]);
