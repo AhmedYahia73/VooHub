@@ -138,7 +138,7 @@ class TaskController extends Controller
             'start_time'=>$request->start_time ?? $task->start_time,
             'number_of_voo_needed'=>$request->number_of_voo_needed ?? $task->number_of_voo_needed,
             'status'=>$request->status ?? $task->status,
-            'image'=> $request->image ? $this->storeBase64Image($request->image, 'tasks/image') : $task->image,
+            'image'=> !empty($request->image) ? $this->storeBase64Image($request->image, 'tasks/image') : $task->image,
             'location'=>$request->location ?? $task->location,
         ]);
         return response()->json(['message'=>'Task updated successfully'], 200);
