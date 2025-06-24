@@ -60,6 +60,7 @@ class HomePageController extends Controller
             'rejectedRequest' => $rejectedRequest,
             'lostRequest' => $lostRequest,
             'attendedRequest' => $attendedRequest,
+            'user_flag' => empty($userOrgnizationId) ? false: true
         ])->setStatusCode(200, 'Success');
     }
 
