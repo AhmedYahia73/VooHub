@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserPaper;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BnyadmRequstController extends Controller
@@ -43,6 +44,10 @@ class BnyadmRequstController extends Controller
         $bnyadm = UserPaper::find($id);
         if ($bnyadm) {
             $bnyadm->update(['status' => 'accepted']);
+            User::where('id', $bnyadm->user_id)
+            ->update([
+                'orgnization_id' => $bnyadm->orgnization_id,
+            ]);
             return response()->json([
                 'message' => 'Bnyadm requst accepted successfully',
                 'data' => $bnyadm
