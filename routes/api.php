@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\User\LocationController as UserLocationController;
 use App\Http\Controllers\Api\User\RequestListController;
 use App\Http\Controllers\Api\User\ShakwaController;
 use App\Http\Controllers\Api\User\EventUserController;
+use App\Http\Controllers\Api\Orgnization\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -235,6 +236,12 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 
     Route::middleware((['auth:sanctum','IsOrgniazation']))->group(function () {
+        Route::get('/ornization/project/item/{id}', [ProjectController::class, 'project']);
+        Route::post('/ornization/project/add', [ProjectController::class, 'create']);
+        Route::post('/ornization/project/update/{id}', [ProjectController::class, 'modify']);
+        Route::delete('/ornization/project/delete/{id}', [ProjectController::class, 'delete']);
+
+        ////////////////////////////////////////////////////// Bnyadm /////////////////////////////////////////////////////////
 
         Route::get('/ornization/Home', [HomeOrganizationController::class, 'view']);
 

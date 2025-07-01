@@ -20,6 +20,17 @@ class UserController extends Controller
         $Orgnization = $request->user()->with([
             'country:id,name',
             'city:id,name,country_id',
+            'events' => function($query){
+                $query->where('date', '<', date('Y-m-d'))
+                ->orWhere('date', date('Y-m-d'))
+                ->where('end_time', '<=', date('H:i:s'));
+            },
+            'tasks' => function($query){
+                $query->where('date', '<', date('Y-m-d'))
+                ->orWhere('date', date('Y-m-d'))
+                ->where('start_time', '<=', date('H:i:s'));
+            },
+            'projects',
         ])->find($request->user()->id);
         return response()->json([
             'message' => 'User profile retrieved successfully',

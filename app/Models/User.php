@@ -67,6 +67,11 @@ class User extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function projects()
+    {
+        return $this->belongsTo(OrganizationProject::class, 'organiztion_id');
+    }
+
     public function city()
     {
         return $this->belongsTo(City::class);
