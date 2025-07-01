@@ -23,7 +23,7 @@ class NewsFeed extends Model
 
     public function getVideoLinkAttribute(){
         if (!empty($this->video)) {
-            return url('storage/', $this->video_link);
+            return url('storage/', $this->video);
         }
         return null;
     }
