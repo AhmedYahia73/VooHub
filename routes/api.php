@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\Orgnization\OperationController as OrgnizationOpera
 use App\Http\Controllers\Api\Orgnization\RequestController;
 use App\Http\Controllers\Api\Orgnization\TaskController as OrgnizationTaskController;
 use App\Http\Controllers\Api\Orgnization\UserController as OrgnizationUserController;
+use App\Http\Controllers\Api\Orgnization\ProjectController;
+use App\Http\Controllers\Api\Orgnization\NewsFeedsController;
 use App\Http\Controllers\Api\User\ApplyController;
 use App\Http\Controllers\Api\User\BnyadmController;
 use App\Http\Controllers\Api\User\HistoryController;
@@ -26,7 +28,6 @@ use App\Http\Controllers\Api\User\LocationController as UserLocationController;
 use App\Http\Controllers\Api\User\RequestListController;
 use App\Http\Controllers\Api\User\ShakwaController;
 use App\Http\Controllers\Api\User\EventUserController;
-use App\Http\Controllers\Api\Orgnization\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
     Route::middleware((['auth:sanctum','IsAdmin']))->group(function () {
 
         Route::get('/admin/profile', [AuthenticationController::class, 'userProfile']);
+        Route::get('/admin/profile_update', [AuthenticationController::class, 'editUserProfile']);
 
 ///////////////////////////////////////////// Home //////////////////////////////////////////////////
         Route::get('/admin/Home', [HomeController::class, 'view']);
@@ -236,6 +238,15 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 
     Route::middleware((['auth:sanctum','IsOrgniazation']))->group(function () {
+
+        Route::get('/ornization/newsfeeds', [NewsFeedsController::class, 'view']);
+        Route::get('/ornization/news_feeds/item/{id}', [NewsFeedsController::class, 'news_feeds']);
+        Route::post('/ornization/news_feeds/add', [NewsFeedsController::class, 'create']);
+        Route::post('/ornization/news_feeds/update/{id}', [NewsFeedsController::class, 'modify']);
+        Route::delete('/ornization/news_feeds/delete/{id}', [NewsFeedsController::class, 'delete']);
+
+        ////////////////////////////////////////////////////// Bnyadm /////////////////////////////////////////////////////////
+
         Route::get('/ornization/project/item/{id}', [ProjectController::class, 'project']);
         Route::post('/ornization/project/add', [ProjectController::class, 'create']);
         Route::post('/ornization/project/update/{id}', [ProjectController::class, 'modify']);

@@ -153,10 +153,6 @@ class AuthenticationController extends Controller
         ]);
     }
 
-
-
-
-
     public function forgetPassword(Request $request)
     {
         $validated = Validator::make($request->all(), [
