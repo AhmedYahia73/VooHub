@@ -12,6 +12,16 @@ class ProjectController extends Controller
 {
     public function __construct(private OrganizationProject $project){}
 
+    public function view(Request $request, $id){
+        $projects = $this->project 
+        ->where('organiztion_id', $request->user()->id)
+        ->get();
+
+        return response()->json([
+            'projects' => $projects
+        ]);
+    }
+
     public function project(Request $request, $id){
         $project = $this->project
         ->where('id', $id)

@@ -50,7 +50,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::get('/admin/Home', [HomeController::class, 'view']);
 
-///////////////////////////////////////////// Countries //////////////////////////////////////////////////
+///////////////////////////////////////////// News Feeds //////////////////////////////////////////////////
 
         Route::get('/admin/news_feeds', [NewsFeedsController::class, 'view']);
         Route::get('/admin/news_feeds/item/{id}', [NewsFeedsController::class, 'news_feeds']);
@@ -256,6 +256,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         ////////////////////////////////////////////////////// Bnyadm /////////////////////////////////////////////////////////
 
+        Route::get('/ornization/project', [ProjectController::class, 'view']);
         Route::get('/ornization/project/item/{id}', [ProjectController::class, 'project']);
         Route::post('/ornization/project/add', [ProjectController::class, 'create']);
         Route::post('/ornization/project/update/{id}', [ProjectController::class, 'modify']);
