@@ -80,7 +80,7 @@ class NewsFeedsController extends Controller
         ->where('id', $id)
         ->first();
         $this->deleteImage($news_feeds->image);
-        $news_feeds->delete;
+        $news_feeds->delete();
 
         return response()->json([
             'success' => 'You delete data success'
