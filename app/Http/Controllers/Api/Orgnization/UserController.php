@@ -30,7 +30,6 @@ class UserController extends Controller
                 ->orWhere('date', date('Y-m-d'))
                 ->where('start_time', '<=', date('H:i:s'));
             },
-            'projects',
         ])->find($request->user()->id);
         return response()->json([
             'message' => 'User profile retrieved successfully',

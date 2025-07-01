@@ -47,10 +47,12 @@ class PolicyController extends Controller
         } 
         else {
             $policy->update([
-                'name',
-                'value',
+                'value' => $request->policy,
             ]);
         }
         
+        return response()->json([
+            'success' => 'You update data success',
+        ]);
     }
 }
