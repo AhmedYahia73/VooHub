@@ -24,7 +24,7 @@ class PolicyController extends Controller
     }
 
     public function update(Request $request){
-        $Validation = FacadesValidator::make($request->all(), [
+        $Validation = Validator::make($request->all(), [
             'policy' => 'required',
         ]);
         if ($Validation->fails()) {
