@@ -16,6 +16,10 @@ class AuthenticationController extends Controller
 {
     use Image;
 
+    public function policies(Request $request){
+
+    }
+
     public function register(Request $request)
 {
     // Validate input
