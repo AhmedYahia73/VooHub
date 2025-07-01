@@ -37,7 +37,10 @@ class NewsFeedsController extends Controller
     public function create(Request $request){
         $newsRequest['user_id'] = $request->user()->id;
         if (!empty($request->image)) {
-            $newsRequest['image'] = $this->storeBase64Image($request->image, 'newsfeeds/image');
+            $newsRequest['image'] = $this->storeBase64Image($request->image, 'newsfeeds/images');
+        }
+        if (!empty($request->video)) {
+            $newsRequest['video'] = $this->upload_image($request, 'video', 'newsfeeds/videos');
         }
         if (!empty($request->content)) {
             $newsRequest['content'] = $request->content;
@@ -51,15 +54,21 @@ class NewsFeedsController extends Controller
     }
 
     public function modify(Request $request, $id){
+        
+        $news_feeds = $this->news_feeds
+        ->where('id', $id)
+        ->first();
         if (!empty($request->image)) {
             $newsRequest['image'] = $this->storeBase64Image($request->image, 'newsfeeds/image');
+            $this->deleteImage($news_feeds->image);
+        }
+        if (!empty($request->video)) {
+            $newsRequest['video'] = $this->update_image($request, $news_feeds->video, 'video', 'newsfeeds/videos');
         }
         if (!empty($request->content)) {
             $newsRequest['content'] = $request->content;
         }
-        $this->news_feeds
-        ->where('id', $id)
-        ->update($newsRequest);
+        $news_feeds->update($newsRequest);
 
         return response()->json([
             'success' => 'You update data success'
@@ -67,9 +76,11 @@ class NewsFeedsController extends Controller
     }
 
     public function delete(Request $request, $id){
-        $this->news_feeds
+        $news_feeds = $this->news_feeds
         ->where('id', $id)
-        ->delete();
+        ->first();
+        $this->deleteImage($news_feeds->image);
+        $news_feeds->delete;
 
         return response()->json([
             'success' => 'You delete data success'
