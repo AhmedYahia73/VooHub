@@ -239,7 +239,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
     Route::middleware((['auth:sanctum','IsOrgniazation']))->group(function () {
 
-        Route::get('/ornization/newsfeeds', [NewsFeedsController::class, 'view']);
+        Route::get('/ornization/news_feeds', [NewsFeedsController::class, 'view']);
         Route::get('/ornization/news_feeds/item/{id}', [NewsFeedsController::class, 'news_feeds']);
         Route::post('/ornization/news_feeds/add', [NewsFeedsController::class, 'create']);
         Route::post('/ornization/news_feeds/update/{id}', [NewsFeedsController::class, 'modify']);
