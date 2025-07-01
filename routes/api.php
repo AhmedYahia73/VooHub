@@ -47,7 +47,16 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::get('/admin/profile_update', [AuthenticationController::class, 'editUserProfile']);
 
 ///////////////////////////////////////////// Home //////////////////////////////////////////////////
+
         Route::get('/admin/Home', [HomeController::class, 'view']);
+
+///////////////////////////////////////////// Countries //////////////////////////////////////////////////
+
+        Route::get('/admin/news_feeds', [NewsFeedsController::class, 'view']);
+        Route::get('/admin/news_feeds/item/{id}', [NewsFeedsController::class, 'news_feeds']);
+        Route::post('/admin/news_feeds/add', [NewsFeedsController::class, 'create']);
+        Route::post('/admin/news_feeds/update/{id}', [NewsFeedsController::class, 'modify']);
+        Route::delete('/admin/news_feeds/delete/{id}', [NewsFeedsController::class, 'delete']);
 
 ///////////////////////////////////////////// Countries //////////////////////////////////////////////////
 
