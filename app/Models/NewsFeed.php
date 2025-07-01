@@ -16,14 +16,14 @@ class NewsFeed extends Model
 
     public function getImageLinkAttribute(){
         if (!empty($this->image)) {
-            return url('storage/', $this->image);
+            return url('storage/' . $this->image);
         }
         return null;
     }
 
     public function getVideoLinkAttribute(){
         if (!empty($this->video)) {
-            return url('storage/', $this->video);
+            return url('storage/' . $this->video);
         }
         return null;
     }
