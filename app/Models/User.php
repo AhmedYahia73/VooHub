@@ -69,7 +69,7 @@ class User extends Model
 
     public function projects()
     {
-        return $this->belongsTo(OrganizationProject::class, 'organiztion_id');
+        return $this->hasMany(OrganizationProject::class, 'organiztion_id');
     }
 
     public function city()
