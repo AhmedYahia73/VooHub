@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\LocationController;
 use App\Http\Controllers\Api\Admin\OperationController;
 use App\Http\Controllers\Api\Admin\OrgnizationController;
 use App\Http\Controllers\Api\Admin\TaskController;
+use App\Http\Controllers\Api\Admin\PolicyController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\Auth\AuthenticationController;
 use App\Http\Controllers\Api\Orgnization\HomeController as HomeOrganizationController;
@@ -43,6 +44,10 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
     Route::middleware((['auth:sanctum','IsAdmin']))->group(function () {
 
+        Route::get('/admin/policy', [PolicyController::class, 'view']);
+        Route::post('/admin/policy/update', [PolicyController::class, 'update']);
+
+///////////////////////////////////////////// Home //////////////////////////////////////////////////
         Route::get('/admin/profile', [AuthenticationController::class, 'userProfile']);
         Route::get('/admin/profile_update', [AuthenticationController::class, 'editUserProfile']);
 
