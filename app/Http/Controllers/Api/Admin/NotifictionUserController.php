@@ -59,7 +59,7 @@ class NotifictionUserController extends Controller
             'notification' => $request->notification,
             'user_id' => $request->user()->id,
         ]);
-        $notification->users->attach($request->users);
+        $notification->users()->attach($request->users);
 
         return response()->json([
             'success' => 'You add data success'
@@ -80,11 +80,14 @@ class NotifictionUserController extends Controller
 
         $notification = $this->notification
         ->where('id', $id)
-        ->update([
+        ->first();
+        $notification->update([
             'notification' => $request->notification,
             'user_id' => $request->user()->id,
         ]);
-        $notification->users->sync($request->users);
+        $notification->users()->delete();
+        $notification->users()->attach($request->users);
+      
 
         return response()->json([
             'success' => 'You update data success'
