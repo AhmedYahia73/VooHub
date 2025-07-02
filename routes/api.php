@@ -56,9 +56,6 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::post('/admin/notification/update/{id}', [NotifictionUserController::class, 'modify']);
         Route::delete('/admin/notification/delete/{id}', [NotifictionUserController::class, 'delete']);
 
-///////////////////////////////////////////// Notification //////////////////////////////////////////////////
-        Route::get('/admin/news_feeds', [UserNewsFeedsController::class, 'view']);
-
 ///////////////////////////////////////////// Home //////////////////////////////////////////////////
         Route::get('/admin/profile', [AuthenticationController::class, 'userProfile']);
         Route::get('/admin/profile_update', [AuthenticationController::class, 'editUserProfile']);
@@ -224,6 +221,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 
     Route::middleware((['auth:sanctum','IsUser']))->group(function () {
+
+        Route::get('/user/news_feeds', [UserNewsFeedsController::class, 'view']);
 
         Route::post('user/delete_account', [AuthenticationController::class, 'delete_account']);
 
