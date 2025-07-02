@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\User\LocationController as UserLocationController;
 use App\Http\Controllers\Api\User\RequestListController;
 use App\Http\Controllers\Api\User\ShakwaController;
 use App\Http\Controllers\Api\User\EventUserController;
+use App\Http\Controllers\Api\User\UserNewsFeedsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,7 +45,7 @@ Route::get('/user/cityCountryList', [UserLocationController::class, 'GetCity']);
 Route::post('/reset-password', [AuthenticationController::class, 'resetPassword']);
 
 
-    Route::middleware((['auth:sanctum','IsAdmin']))->group(function () {
+    Route::middleware((['auth:sanctum','IsAdmin']))->group(function () {// UserNewsFeedsController
         Route::get('/admin/policy', [PolicyController::class, 'view']);
         Route::post('/admin/policy/update', [PolicyController::class, 'update']);
 
@@ -54,6 +55,9 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::post('/admin/notification/add', [NotifictionUserController::class, 'create']);
         Route::post('/admin/notification/update/{id}', [NotifictionUserController::class, 'modify']);
         Route::delete('/admin/notification/delete/{id}', [NotifictionUserController::class, 'delete']);
+
+///////////////////////////////////////////// Notification //////////////////////////////////////////////////
+        Route::get('/admin/news_feeds', [UserNewsFeedsController::class, 'view']);
 
 ///////////////////////////////////////////// Home //////////////////////////////////////////////////
         Route::get('/admin/profile', [AuthenticationController::class, 'userProfile']);
