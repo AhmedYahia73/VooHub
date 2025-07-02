@@ -6,18 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Image;
 use App\Mail\EmailVerificationCode;
 use App\Mail\ForgotPasswordMail;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+
+use App\Models\User;
+use App\Models\Setting;
 
 class AuthenticationController extends Controller
 {
     use Image;
 
     public function policies(Request $request){
+        $policies = Setting::where('name', 'policy')
+        ->first()?->value;
 
+        return response()->json([
+            'policies' => $policies
+        ]);
     }
 
     public function register(Request $request)
