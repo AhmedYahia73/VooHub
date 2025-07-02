@@ -58,7 +58,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 ///////////////////////////////////////////// Home //////////////////////////////////////////////////
         Route::get('/admin/profile', [AuthenticationController::class, 'userProfile']);
-        Route::get('/admin/profile_update', [AuthenticationController::class, 'editUserProfile']);
+        Route::post('/admin/profile_update', [AuthenticationController::class, 'editUserProfile']);
 
 ///////////////////////////////////////////// Home //////////////////////////////////////////////////
 
