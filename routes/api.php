@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\OperationController;
 use App\Http\Controllers\Api\Admin\OrgnizationController;
 use App\Http\Controllers\Api\Admin\TaskController;
 use App\Http\Controllers\Api\Admin\PolicyController;
+use App\Http\Controllers\Api\Admin\NotifictionUserController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\Auth\AuthenticationController;
 use App\Http\Controllers\Api\Orgnization\HomeController as HomeOrganizationController;
@@ -43,9 +44,15 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 
     Route::middleware((['auth:sanctum','IsAdmin']))->group(function () {
-
         Route::get('/admin/policy', [PolicyController::class, 'view']);
         Route::post('/admin/policy/update', [PolicyController::class, 'update']);
+
+///////////////////////////////////////////// Notification //////////////////////////////////////////////////
+        Route::get('/admin/notification', [NotifictionUserController::class, 'view']);
+        Route::get('/admin/notification/item/{id}', [NotifictionUserController::class, 'notification']);
+        Route::post('/admin/notification/add', [NotifictionUserController::class, 'create']);
+        Route::post('/admin/notification/update/{id}', [NotifictionUserController::class, 'modify']);
+        Route::delete('/admin/notification/delete/{id}', [NotifictionUserController::class, 'delete']);
 
 ///////////////////////////////////////////// Home //////////////////////////////////////////////////
         Route::get('/admin/profile', [AuthenticationController::class, 'userProfile']);
