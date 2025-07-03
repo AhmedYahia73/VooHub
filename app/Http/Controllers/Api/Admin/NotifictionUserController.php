@@ -85,7 +85,7 @@ class NotifictionUserController extends Controller
             'notification' => $request->notification,
             'user_id' => $request->user()->id,
         ]);
-        $notification->users()->delete();
+        $notification->users()->detach();
         $notification->users()->attach($request->users);
       
 
