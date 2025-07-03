@@ -54,7 +54,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::get('/admin/noti/notification_num', [NotificationRequestController::class, 'notification_num']);
         Route::post('/admin/noti/view_notification', [NotificationRequestController::class, 'view_notification']);
-        Route::post('/admin/noti/view_request', [NotificationRequestController::class, 'view_request']);
+        Route::post('/admin/noti/view_request/{id}', [NotificationRequestController::class, 'view_request']);
 
 ///////////////////////////////////////////// Notification //////////////////////////////////////////////////
 
