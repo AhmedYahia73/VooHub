@@ -13,6 +13,8 @@ class Request extends Model
         'orgnization_id',
         'request_type',
         'qr_code',
+        'view_notification',
+        'view_request',
         'status',
     ];
     protected $appends = ['qr_code_link'];

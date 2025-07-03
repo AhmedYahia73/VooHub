@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Admin\TaskController;
 use App\Http\Controllers\Api\Admin\PolicyController;
 use App\Http\Controllers\Api\Admin\NotifictionUserController;
 use App\Http\Controllers\Api\Admin\UserController;
+use App\Http\Controllers\Api\Admin\NotificationRequestController;
 use App\Http\Controllers\Api\Auth\AuthenticationController;
 use App\Http\Controllers\Api\Orgnization\HomeController as HomeOrganizationController;
 use App\Http\Controllers\Api\Orgnization\BnyadmRequstController as OrgnizationBnyadmRequstController;
@@ -50,6 +51,13 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::post('/admin/policy/update', [PolicyController::class, 'update']);
 
 ///////////////////////////////////////////// Notification //////////////////////////////////////////////////
+
+        Route::get('/admin/noti/notification_num', [NotificationRequestController::class, 'notification_num']);
+        Route::post('/admin/noti/view_notification', [NotificationRequestController::class, 'view_notification']);
+        Route::post('/admin/noti/view_request', [NotificationRequestController::class, 'view_request']);
+
+///////////////////////////////////////////// Notification //////////////////////////////////////////////////
+
         Route::get('/admin/notification', [NotifictionUserController::class, 'view']);
         Route::get('/admin/notification/item/{id}', [NotifictionUserController::class, 'notification']);
         Route::post('/admin/notification/add', [NotifictionUserController::class, 'create']);
