@@ -12,6 +12,21 @@ class NotificationRequestController extends Controller
 {
     public function __construct(private AdminRequest $admin_request){}
 
+    public function view(Request $request){
+        $requests_data = $this->admin_request
+        ->with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])
+        ->orderByDesc('id');
+        if ($request->user()->role == 'organization') {
+            $requests_data = $requests_data
+            ->where('orgnization_id', $request->user()->id);
+        }
+        $requests_data = $requests_data->get();
+
+        return response()->json([
+            'requests_data' => $requests_data,
+        ]);
+    }
+
     public function notification_num(Request $request){
         $requests_count = $this->admin_request
         ->where('view_notification', 0);

@@ -52,6 +52,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
 ///////////////////////////////////////////// Notification //////////////////////////////////////////////////
 
+        Route::get('/admin/noti/view', [NotificationRequestController::class, 'view']);
         Route::get('/admin/noti/notification_num', [NotificationRequestController::class, 'notification_num']);
         Route::post('/admin/noti/view_notification', [NotificationRequestController::class, 'view_notification']);
         Route::post('/admin/noti/view_request/{id}', [NotificationRequestController::class, 'view_request']);
@@ -280,6 +281,7 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         ///////////////////////////////////////////// Notification //////////////////////////////////////////////////
 
+        Route::get('/ornization/noti/view', [NotificationRequestController::class, 'view']);
         Route::get('/ornization/noti/notification_num', [NotificationRequestController::class, 'notification_num']);
         Route::post('/ornization/noti/view_notification', [NotificationRequestController::class, 'view_notification']);
         Route::post('/ornization/noti/view_request/{id}', [NotificationRequestController::class, 'view_request']);
