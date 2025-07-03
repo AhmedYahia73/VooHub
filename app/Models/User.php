@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 
+use Carbon\Carbon;
+
 class User extends Model
 {
     use HasApiTokens;
@@ -39,7 +41,15 @@ class User extends Model
         'avatar_image_link',
         'month',
         'year',
+        'age'
     ];
+
+    public function getAgeAttribute(){
+        if (!empty($this->birth)) {
+            return Carbon::parse($this->birth)->age;
+        }
+        return null;
+    }
 
     public function getMonthAttribute(){
         return \Carbon\Carbon::parse($this->created_at)->format('m');
