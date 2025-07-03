@@ -13,6 +13,7 @@ class AdminRequestController extends Controller
     public function getAllRequest(){
         $request = ModelsRequest::
         where('status', 'pending')
+        ->orderByDesc('id')
         ->with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])
         ->get();
         return response()->json([

@@ -278,6 +278,12 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::post('/ornization/news_feeds/update/{id}', [NewsFeedsController::class, 'modify']);
         Route::delete('/ornization/news_feeds/delete/{id}', [NewsFeedsController::class, 'delete']);
 
+        ///////////////////////////////////////////// Notification //////////////////////////////////////////////////
+
+        Route::get('/ornization/noti/notification_num', [NotificationRequestController::class, 'notification_num']);
+        Route::post('/ornization/noti/view_notification', [NotificationRequestController::class, 'view_notification']);
+        Route::post('/ornization/noti/view_request/{id}', [NotificationRequestController::class, 'view_request']);
+
         ////////////////////////////////////////////////////// Bnyadm /////////////////////////////////////////////////////////
 
         Route::get('/ornization/project', [ProjectController::class, 'view']);

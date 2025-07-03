@@ -16,6 +16,7 @@ class RequestController extends Controller
     public function getAllRequest(Request $request){
         $orgnization_id = $request->user()->id;
         $request = ModelsRequest::where('orgnization_id', $orgnization_id)
+        ->orderByDesc('id')
         ->where('status', 'pending')
         ->with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])->get();
         return response()->json([
