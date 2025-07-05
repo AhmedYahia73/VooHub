@@ -1,6 +1,6 @@
 <?php
 
-namespace App\traits;
+namespace App\Http\traits;
 
 use Illuminate\Http\Request;
 
