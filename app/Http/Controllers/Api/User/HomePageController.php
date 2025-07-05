@@ -6,11 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Request as ModelsRequest;
 use App\Models\Task;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
 {
+    public function notifications(Request $request){
+        $notifications = Notification::
+        whereHas('users', function($query) use($request){
+            return $query->where('users.id', $request->user()->id);
+        })
+        ->orderByDesc('created_at')
+        ->get();
 
+        return response()->json([
+            'notifications' => $notifications
+        ]);
+    }
 
     public function getEventsAndTaks(Request $request){
         $user = $request->user();

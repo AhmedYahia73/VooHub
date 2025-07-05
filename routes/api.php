@@ -243,6 +243,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::post('/user/attend_event', [EventUserController::class, 'user_location']);
 
+        Route::get('/user/notifications', [HomePageController::class, 'notifications']);
+        
         Route::get('/user/eventsAndTasks', [HomePageController::class, 'getEventsAndTaks']);
 
         Route::get('/user/historyRequests',[HistoryController::class,'getHistoryAttend']);
