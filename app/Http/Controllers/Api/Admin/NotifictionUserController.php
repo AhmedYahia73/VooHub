@@ -5,15 +5,19 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Http\traits\Notifications;
 
-use App\Models\Notification;
+use App\Models\Notification as NewNotification;
 use App\Models\NotificationUser;
+use App\Models\DeviceToken;
 use App\Models\User;
 
 class NotifictionUserController extends Controller
 {
-    public function __construct(private Notification $notification,
-    private NotificationUser $notification_user, private User $user){}
+    public function __construct(private NewNotification $notification,
+    private NotificationUser $notification_user, private User $user,
+    private DeviceToken $device_token){}
+    use Notifications;
 
     public function view(Request $request){
         $notifications = $this->notification
@@ -60,7 +64,13 @@ class NotifictionUserController extends Controller
             'user_id' => $request->user()->id,
         ]);
         $notification->users()->attach($request->users);
+        $tokens = $this->device_token
+        ->whereIn('user_id', $request->users)
+        ->pluck('token');
 
+        if($tokens->count() > 0){
+            $this->sendNotificationToMany($tokens, 'Voo Notification', $notification->notification);
+        }
         return response()->json([
             'success' => 'You add data success'
         ]);
@@ -88,6 +98,12 @@ class NotifictionUserController extends Controller
         $notification->users()->detach();
         $notification->users()->attach($request->users);
       
+        $tokens = $this->device_token
+        ->whereIn('user_id', $request->users)
+        ->pluck('token');
+        if($tokens->count() > 0){
+            $this->sendNotificationToMany($tokens, 'Voo Notification', $notification->notification);
+        }
 
         return response()->json([
             'success' => 'You update data success'

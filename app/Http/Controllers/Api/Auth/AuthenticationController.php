@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
+use App\Models\DeviceToken;
 use App\Models\Setting;
 
 class AuthenticationController extends Controller
@@ -39,6 +40,8 @@ class AuthenticationController extends Controller
         'password' => 'required|min:8',
         'bithdate' => 'nullable|date',
         'gender' => 'in:male,female',
+        'token' => 'required',
+        'platform' => 'in:android,ios',
     ]);
 
     if ($validation->fails()) {
@@ -71,7 +74,10 @@ class AuthenticationController extends Controller
             ]);
 
             Mail::to($userExists->email)->send(new EmailVerificationCode($code, $userExists->name));
-
+            DeviceToken::updateOrCreate(
+                ['user_id' => Auth::id()],
+                ['token' => $request->token, 'platform' => $request->platform]
+            );
             return response()->json([
                 'message' => 'Go and check your email to verify your account',
             ]);
@@ -98,6 +104,10 @@ class AuthenticationController extends Controller
     ]);
 
     Mail::to($user->email)->send(new EmailVerificationCode($code, $user->name));
+    DeviceToken::updateOrCreate(
+        ['user_id' => Auth::id()],
+        ['token' => $request->token, 'platform' => $request->platform]
+    );
 
     return response()->json([
         'message' => 'Go and check your email to verify your account',
@@ -143,6 +153,8 @@ class AuthenticationController extends Controller
         $validation = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8',
+            'token' => 'required',
+            'platform' => 'in:android,ios',
         ]);
 
         if ($validation->fails()) {
@@ -157,6 +169,11 @@ class AuthenticationController extends Controller
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
+        
+        DeviceToken::updateOrCreate(
+            ['user_id' => Auth::id()],
+            ['token' => $request->token, 'platform' => $request->platform]
+        );
         return response()->json([
             'message' => 'User successfully logged in',
             'user' => $user,
