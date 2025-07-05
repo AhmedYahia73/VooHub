@@ -153,8 +153,6 @@ class AuthenticationController extends Controller
         $validation = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8',
-            'token' => 'required',
-            'platform' => 'in:android,ios',
         ]);
 
         if ($validation->fails()) {
@@ -169,11 +167,21 @@ class AuthenticationController extends Controller
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
+        if($user->role == 'user'){
+            $validation = Validator::make($request->all(), [
+                'token' => 'required',
+                'platform' => 'in:android,ios',
+            ]);
+
+            if ($validation->fails()) {
+                return response()->json($validation->errors(), 422);
+            }
+            DeviceToken::updateOrCreate(
+                ['user_id' => Auth::id()],
+                ['token' => $request->token, 'platform' => $request->platform]
+            );
+        }
         
-        DeviceToken::updateOrCreate(
-            ['user_id' => Auth::id()],
-            ['token' => $request->token, 'platform' => $request->platform]
-        );
         return response()->json([
             'message' => 'User successfully logged in',
             'user' => $user,
