@@ -76,7 +76,7 @@ class AuthenticationController extends Controller
 
             Mail::to($userExists->email)->send(new EmailVerificationCode($code, $userExists->name));
             DeviceToken::updateOrCreate(
-                ['user_id' => Auth::id()],
+                ['user_id' => $userExists->id],
                 ['token' => $request->token, 'platform' => $request->platform]
             );
             return response()->json([
@@ -106,7 +106,7 @@ class AuthenticationController extends Controller
 
     Mail::to($user->email)->send(new EmailVerificationCode($code, $user->name));
     DeviceToken::updateOrCreate(
-        ['user_id' => Auth::id()],
+        ['user_id' => $user->id],
         ['token' => $request->token, 'platform' => $request->platform]
     );
 
@@ -178,7 +178,7 @@ class AuthenticationController extends Controller
                 return response()->json($validation->errors(), 422);
             }
             DeviceToken::updateOrCreate(
-                ['user_id' => Auth::id()],
+                ['user_id' => $user->id],
                 ['token' => $request->token, 'platform' => $request->platform]
             );
         }
