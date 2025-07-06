@@ -71,7 +71,7 @@ class NotifictionUserController extends Controller
         ->pluck('token');
 
         if($tokens->count() > 0){
-            $this->sendNotificationToMany($tokens, 'Voo Notification', $notification->notification);
+            $this->sendNotificationToMany($tokens, $notification->title, $notification->notification);
         }
         return response()->json([
             'success' => 'You add data success'
@@ -106,7 +106,7 @@ class NotifictionUserController extends Controller
         ->whereIn('user_id', $request->users)
         ->pluck('token');
         if($tokens->count() > 0){
-            $this->sendNotificationToMany($tokens, 'Voo Notification', $notification->notification);
+            $this->sendNotificationToMany($tokens, $notification->title, $notification->notification);
         }
 
         return response()->json([
