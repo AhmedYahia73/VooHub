@@ -14,7 +14,7 @@ class AdminRequestController extends Controller
         $request = ModelsRequest::
         where('status', 'pending')
         ->orderByDesc('id')
-        ->with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])
+        ->with(['user:id,name,email','task:id,name,date,start_time','event:id,name,date,start_time','orgnization:id,name'])
         ->get();
         return response()->json([
             'requests' => $request,
