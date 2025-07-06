@@ -14,7 +14,7 @@ class NotificationRequestController extends Controller
 
     public function view(Request $request){
         $requests_data = $this->admin_request
-        ->with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])
+        ->with(['user:id,name,email','task:id,name,date,start_time','event:id,name,date,start_time','orgnization:id,name'])
         ->orderByDesc('id');
         if ($request->user()->role == 'organization') {
             $requests_data = $requests_data
