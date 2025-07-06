@@ -14,7 +14,7 @@ return [
     |
     */
     'firebase' => [
-        'credentials' => storage_path('app/firebase/voo-volunteering.json'),
+        'credentials' => storage_path('app/firebase/voo-volunteering-d4e867da8712.json'),
     ],
     
     'postmark' => [
