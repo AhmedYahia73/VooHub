@@ -68,7 +68,7 @@ class NotifictionUserController extends Controller
         $notification->users()->attach($request->users);
         $tokens = $this->device_token
         ->whereIn('user_id', $request->users)
-        ->pluck('token');
+        ->pluck('token')->toArray();
 
         if($tokens->count() > 0){
             $this->sendNotificationToMany($tokens, $notification->title, $notification->notification);
@@ -104,7 +104,7 @@ class NotifictionUserController extends Controller
       
         $tokens = $this->device_token
         ->whereIn('user_id', $request->users)
-        ->pluck('token');
+        ->pluck('token')->toArray();
         if($tokens->count() > 0){
             $this->sendNotificationToMany($tokens, $notification->title, $notification->notification);
         }
