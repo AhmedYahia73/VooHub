@@ -18,7 +18,7 @@ class RequestController extends Controller
         $request = ModelsRequest::where('orgnization_id', $orgnization_id)
         ->orderByDesc('id')
         ->where('status', 'pending')
-        ->with(['user:id,name,email','task:id,name','event:id,name','orgnization:id,name'])->get();
+        ->with(['user:id,name,email','task:id,name,date,start_time','event:id,name,date,start_time','orgnization:id,name'])->get();
         return response()->json([
             'requests' => $request,
         ], 200);
