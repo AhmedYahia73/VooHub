@@ -48,6 +48,7 @@ class NotifictionUserController extends Controller
 
     public function create(Request $request){
         $Validation = Validator::make($request->all(), [
+            'title' => 'required',
             'notification' => 'required',
             'users' => 'required|array',
             'users.*' => 'required|exists:users,id',
@@ -60,6 +61,7 @@ class NotifictionUserController extends Controller
 
         $notification = $this->notification
         ->create([
+            'title' => $request->title,
             'notification' => $request->notification,
             'user_id' => $request->user()->id,
         ]);
@@ -78,6 +80,7 @@ class NotifictionUserController extends Controller
 
     public function modify(Request $request, $id){
         $Validation = Validator::make($request->all(), [
+            'title' => 'required',
             'notification' => 'required',
             'users' => 'required|array',
             'users.*' => 'required|exists:users,id',
@@ -92,6 +95,7 @@ class NotifictionUserController extends Controller
         ->where('id', $id)
         ->first();
         $notification->update([
+            'title' => $request->title,
             'notification' => $request->notification,
             'user_id' => $request->user()->id,
         ]);
