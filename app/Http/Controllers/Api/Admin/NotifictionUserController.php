@@ -70,7 +70,7 @@ class NotifictionUserController extends Controller
         ->whereIn('user_id', $request->users)
         ->pluck('token')->toArray();
 
-        if($tokens->count() > 0){
+        if(count($tokens) > 0){
             $this->sendNotificationToMany($tokens, $notification->title, $notification->notification);
         }
         return response()->json([
@@ -105,7 +105,7 @@ class NotifictionUserController extends Controller
         $tokens = $this->device_token
         ->whereIn('user_id', $request->users)
         ->pluck('token')->toArray();
-        if($tokens->count() > 0){
+        if(count($tokens) > 0){
             $this->sendNotificationToMany($tokens, $notification->title, $notification->notification);
         }
 
