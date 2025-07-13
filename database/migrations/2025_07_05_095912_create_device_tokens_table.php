@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('device_tokens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('token')->unique();
+            $table->string('token');
             $table->enum('platform', ['android', 'ios'])->nullable();
             $table->timestamps();
         });
