@@ -41,6 +41,7 @@ class TaskController extends Controller
             'from_zone.city.country:id,name',
             'task_requirments:id,task_id,requirment',
             'task_benfits:id,task_id,benfit',
+            'orgnization:id,name', 
         ])->find($id);
         if (!$task) {
             return response()->json(['message' => 'Task not found'], 404);
