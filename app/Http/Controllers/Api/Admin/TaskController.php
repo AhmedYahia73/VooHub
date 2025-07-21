@@ -23,7 +23,7 @@ class TaskController extends Controller
             'from_zone.city.country:id,name',
             'task_requirments:id,task_id,requirment',
             'task_benfits:id,task_id,benfit',
-            'orgnization'
+            'orgnization', 
             ])->get();
         $data =[
             'tasks' => $tasks,
