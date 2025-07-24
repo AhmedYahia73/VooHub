@@ -90,8 +90,7 @@ class HomeController extends Controller
         ->map(function($item){
             return [
                 'city' => $item->name,
-                'users' => $item->users_count,
-                'data' => $item,
+                'users' => $item->users_count, 
             ];
         });
         $recent_event = Event::
