@@ -86,6 +86,7 @@ class HomeController extends Controller
         ->whereHas('users', function($query) use($request){
             return $query->where('orgnization_id', $request->user()->id);
         })
+        ->get()
         ->map(function($item){
             return [
                 'city' => $item->name,
