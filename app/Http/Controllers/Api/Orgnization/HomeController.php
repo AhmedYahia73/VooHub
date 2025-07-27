@@ -75,8 +75,8 @@ class HomeController extends Controller
         ->count();
         $volunteer_gender = $volunteer_gender->count();
         $gender = [
-            'male' => $volunteer_gender->count() > 0 ? $male * 100 / $volunteer_gender : 0,
-            'female' => $volunteer_gender->count() > 0 ? $female * 100 / $volunteer_gender : 0,
+            'male' => $volunteer_gender > 0 ? $male * 100 / $volunteer_gender : 0,
+            'female' => $volunteer_gender > 0 ? $female * 100 / $volunteer_gender : 0,
         ];
         $volunteer_cities = $this->city
         ->select('id', 'name')
