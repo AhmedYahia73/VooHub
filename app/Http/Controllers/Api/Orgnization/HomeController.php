@@ -80,11 +80,11 @@ class HomeController extends Controller
         ];
         $volunteer_cities = $this->city
         ->select('id', 'name')
-        ->withCount(['users' => function($query) use($request){
-            return $query->where('orgnization_id', $request->user()->id);
+        ->with(['users' => function($query) use($request){
+            return $query->where('users.orgnization_id', $request->user()->id);
         }])
         ->whereHas('users', function($query) use($request){
-            return $query->where('orgnization_id', $request->user()->id);
+            return $query->where('users.orgnization_id', $request->user()->id);
         })
         ->get()
         ->map(function($item){
