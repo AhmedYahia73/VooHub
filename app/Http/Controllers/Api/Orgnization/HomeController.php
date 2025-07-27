@@ -20,21 +20,21 @@ class HomeController extends Controller
         $users = $this->user
         ->where('role', 'user')
         ->where('account_status', 'active')
-        ->where('orgnization_id', $request->user()->id)
+        ->where('orgnization_id', $request->user()->orgnization_id)
         ->get();
         $users_volunters = $this->user
         ->where('role', 'user')
         ->where('account_status', 'active')
-        ->where('orgnization_id', $request->user()->id)
+        ->where('orgnization_id', $request->user()->orgnization_id)
         ->count();
         $users_count = $users->count();
         $current_tasks_count = $this->task
         ->where('date', '>=', date('Y-m-d'))
-        ->where('orgnization_id', $request->user()->id)
+        ->where('orgnization_id', $request->user()->orgnization_id)
         ->count();
         $ended_tasks_count = $this->task
         ->where('date', '<', date('Y-m-d'))
-        ->where('orgnization_id', $request->user()->id)
+        ->where('orgnization_id', $request->user()->orgnization_id)
         ->count();
         $user_year = [
             'Jan' => $users->where('year', date('Y'))->where('month', 1)->count(),
@@ -59,7 +59,7 @@ class HomeController extends Controller
         ->get();
         $country = $this->country
         ->withCount(['users' => function($query) use($request){
-            $query->where('orgnization_id', $request->user()->orgnization_id)
+            $query->where('orgnization_id', $request->user()->id)
             ->where('role', 'user')
             ->where('account_status', 'active');
         }])
@@ -80,7 +80,7 @@ class HomeController extends Controller
         ];
         $volunteer_cities = $this->city
         ->select('id', 'name')
-        ->with(['users' => function($query) use($request){
+        ->withCount(['users' => function($query) use($request){
             return $query->where('users.orgnization_id', $request->user()->id);
         }])
         ->whereHas('users', function($query) use($request){
