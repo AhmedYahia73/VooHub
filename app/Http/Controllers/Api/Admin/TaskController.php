@@ -66,6 +66,7 @@ class TaskController extends Controller
             'requirments.*'=>'required|string|max:255',
             'benfits'=>'nullable|array',
             'benfits.*'=>'required|string|max:255',
+            'google_map_location' => 'required',
         ]);
         if($Validation->fails()){
             return response()->json(['message'=>$Validation->errors()], 422);
@@ -84,6 +85,7 @@ class TaskController extends Controller
                 'status'=>$request->status,
                 'image'=>$this->storeBase64Image($request->image, 'tasks/image'),
                 'location'=>$request->location,
+                'google_map_location' => $request->google_map_location,
             ]);
             if ($request->has('requirments')) {
                 foreach ($request->requirments as $requirment) {
@@ -122,6 +124,7 @@ class TaskController extends Controller
             'status'=>'nullable|in:active,inactive',
             'image'=>'nullable',
             'location'=>'nullable',
+            'google_map_location' => 'nullable',
         ]);
         if($validation->fails()){
             return response()->json(['message'=>$validation->errors()], 422);

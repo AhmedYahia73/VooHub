@@ -13,6 +13,7 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    
     'firebase' => [
         'credentials' => storage_path('app/firebase/voo-volunteering-d4e867da8712.json'),
     ],
