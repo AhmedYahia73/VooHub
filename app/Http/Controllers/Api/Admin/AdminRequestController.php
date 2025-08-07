@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,6 +61,59 @@ class AdminRequestController extends Controller
         }
         $requestData->status = 'rejected';
         $requestData->save();
+        return response()->json(['message' => 'Request status updated successfully'], 200);
+    }
+
+    public function acceptGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:requests,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        } 
+
+        foreach ($request->ids as $item) {
+            $requestData = ModelsRequest::find($item);
+            $requestData->status = 'accepted';
+            $qrImage = QrCode::format('png')->size(200)->generate('model_request-' . $item);
+            $fileName = 'user/events_qr/' . $item . rand(0, 10000) . '.png';
+            Storage::disk('public')->put($fileName, $qrImage);
+            $requestData->qr_code = $fileName;
+            $requestData->save();
+        }
+
+        return response()->json(['message' => 'Request status updated successfully'], 200);
+    }
+
+    public function deleteGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:requests,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        } 
+        $request = ModelsRequest::
+        whereIn('id', $request->ids)
+        ->delete();
+     
+        return response()->json(['message' => 'Request deleted successfully'], 200);
+    }
+
+    public function rejectGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:requests,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        } 
+        $requestData = ModelsRequest::
+        whereIn('id', $request->ids)
+        ->update([
+            'status' => 'rejected'
+        ]); 
         return response()->json(['message' => 'Request status updated successfully'], 200);
     }
 }

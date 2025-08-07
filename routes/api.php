@@ -117,6 +117,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::put('/admin/user/status/{id}', [UserController::class, 'status']);
 
+        Route::put('/admin/user/statusGroup', [UserController::class, 'statusGroup']);
+
         Route::get('/admin/user/{id}', [UserController::class, 'getUser']);
 
         Route::post('/admin/user/add', [UserController::class, 'addUser']);
@@ -124,6 +126,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::put('/admin/user/update/{id}', [UserController::class, 'updateUser']);
 
         Route::delete('/admin/user/delete/{id}', [UserController::class, 'deleteUser']);
+        
+        Route::delete('/admin/user/deleteGroup', [UserController::class, 'deleteGroup']);
 
 //////////////////////////////////////////////// Orgnization //////////////////////////////////////////////////
 
@@ -135,9 +139,13 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::put('/admin/organization/status/{id}', [OrgnizationController::class, 'status']);
 
+        Route::put('/admin/organization/statusGroup', [OrgnizationController::class, 'statusGroup']);
+
         Route::put('/admin/organization/update/{id}', [OrgnizationController::class, 'updateOrgnization']);
 
         Route::delete('/admin/organization/delete/{id}', [OrgnizationController::class, 'deleteOrgnization']);
+
+        Route::delete('/admin/organization/deleteGroup', [OrgnizationController::class, 'deleteGroup']);
 
 
 ////////////////////////////////////////////////// Events ////////////////////////////////////////////////////
@@ -152,6 +160,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::delete('/admin/event/delete/{eventId}', [EventController::class, 'deleteEvent']);
 
+        Route::delete('/admin/event/deleteGroup', [EventController::class, 'deleteGroup']);
+
 /////////////////////////////////////////////////// Tasks ////////////////////////////////////////////////////////
 
         Route::get('/admin/task', [TaskController::class, 'getTasks']);
@@ -164,6 +174,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::delete('/admin/task/delete/{id}', [TaskController::class, 'deleteTask']);
 
+        Route::delete('/admin/task/deleteGroup', [TaskController::class, 'deleteGroup']);
+
 //////////////////////////////////////////////////// Requests ////////////////////////////////////////////////////////
 
         Route::get('/admin/request', [AdminRequestController::class, 'getAllRequest']);
@@ -175,6 +187,12 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::put('/admin/request/reject/{id}', [AdminRequestController::class, 'rejectRequest']);
 
         Route::delete('/admin/request/delete/{id}', [AdminRequestController::class, 'deleteRequest']);
+
+        Route::put('/admin/request/acceptGroup', [AdminRequestController::class, 'acceptGroup']);
+
+        Route::put('/admin/request/rejectGroup', [AdminRequestController::class, 'rejectGroup']);
+
+        Route::delete('/admin/request/deleteGroup', [AdminRequestController::class, 'deleteGroup']);
 
 //////////////////////////////////////////////// Shakwa and Suggest ////////////////////////////////////////////////////////
 
@@ -217,6 +235,10 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::put('/admin/bnyadm/accept/{id}', [BnyadmRequstController::class, 'acceptBnyadmRequst']);
 
         Route::put('/admin/bnyadm/reject/{id}', [BnyadmRequstController::class, 'rejectBnyadmRequst']);
+
+        Route::put('/admin/bnyadm/acceptGroup', [BnyadmRequstController::class, 'acceptGroup']);
+
+        Route::put('/admin/bnyadm/rejectGroup', [BnyadmRequstController::class, 'rejectGroup']);
 
 
 
@@ -322,6 +344,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         
         Route::delete('/ornization/user/delete/{id}', [OrgnizationUserController::class, 'deleteUser']);
 
+        Route::delete('/ornization/user/deleteGroup', [OrgnizationUserController::class, 'deleteGroup']);
+
         Route::get('/ornization/task', [OrgnizationTaskController::class, 'getOrgnizationTasks']);
 
         Route::get('/ornization/task/{id}', [OrgnizationTaskController::class, 'getTaskById']);
@@ -332,6 +356,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 
         Route::delete('/ornization/task/delete/{id}', [OrgnizationTaskController::class, 'deleteTask']);
 
+        Route::delete('/ornization/task/deleteGroup', [OrgnizationTaskController::class, 'deleteGroup']);
+
         Route::get('/ornization/event', [OrgnizationEventController::class, 'getEvents']);
 
         Route::get('/ornization/event/{id}', [OrgnizationEventController::class, 'getEventById']);
@@ -341,6 +367,8 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::put('/ornization/event/update/{id}', [OrgnizationEventController::class, 'updateEvent']);
 
         Route::delete('/ornization/event/delete/{eventId}', [OrgnizationEventController::class, 'deleteEvent']);
+        
+        Route::delete('/ornization/event/deleteGroup', [OrgnizationEventController::class, 'deleteGroup']);
 
         Route::get('/orgnization/getCountry', [OrgnizationLocationController::class, 'GetCountry']);
 
@@ -395,5 +423,9 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
         Route::put('/orgnization/bnyadm/accept/{id}', [OrgnizationBnyadmRequstController::class, 'acceptBnyadmRequst']);
 
         Route::put('/orgnization/bnyadm/reject/{id}', [OrgnizationBnyadmRequstController::class, 'rejectBnyadmRequst']);
+
+        Route::put('/orgnization/bnyadm/acceptGroup', [OrgnizationBnyadmRequstController::class, 'acceptGroup']);
+
+        Route::put('/orgnization/bnyadm/rejectGroup', [OrgnizationBnyadmRequstController::class, 'rejectGroup']);
 
     });

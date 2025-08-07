@@ -185,6 +185,21 @@ class EventController extends Controller
     }
 }
 
+    public function deleteGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:events,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+
+        $event = Event::
+        whereIn('id', $request->ids)
+        ->delete(); 
+
+        return response()->json(['message' => 'Event deleted successfully'], 200);
+    }
 
     public function deleteEvent($eventId)
     {

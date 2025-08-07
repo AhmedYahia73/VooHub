@@ -148,6 +148,22 @@ class TaskController extends Controller
         return response()->json(['message'=>'Task updated successfully'], 200);
     }
 
+    public function deleteGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:tasks,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+
+        $event = Task::
+        whereIn('id', $request->ids)
+        ->delete(); 
+
+        return response()->json(['message' => 'Event deleted successfully'], 200);
+    }
+
     public function deleteTask($id){
         $task = Task::find($id);
         if (!$task) {

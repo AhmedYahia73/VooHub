@@ -97,6 +97,27 @@ class OrgnizationController extends Controller
         ]);
     }
 
+    public function statusGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:users,id',
+            'account_status' => 'required|in:active,inactive',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+
+        $user = User::
+        whereIn('id', $request->ids)
+        ->update([
+            'account_status' => $request->account_status,
+        ]);
+        
+        return response()->json([
+            'message' => 'You update status successfully',
+        ]);
+    }
+
     public function deleteOrgnization($id){
         $user = User::findOrFail($id);
         $user->delete();
@@ -104,6 +125,25 @@ class OrgnizationController extends Controller
             'message' => 'Orgnization deleted successfully',
         ]);
     }
+
+    public function deleteGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:users,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+
+        $user = User::
+        whereIn('id', $request->ids)
+        ->delete();
+        
+        return response()->json([
+            'message' => 'User deleted successfully',
+        ]);
+    }
+
     public function getOrgnizationById($id){
         $orgnization = User::where('role', 'orgnization')
         ->with(['country:name,id', 'city:name,id','user_papers'])->findOrFail($id);

@@ -165,4 +165,22 @@ class UserController extends Controller
             'message' => 'User deleted successfully',
         ]);
     }
+
+    public function deleteGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:users,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+
+        $user = User::
+        whereIn('id', $request->ids)
+        ->delete();
+        
+        return response()->json([
+            'message' => 'User deleted successfully',
+        ]);
+    }
 }

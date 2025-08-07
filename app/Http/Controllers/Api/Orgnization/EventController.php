@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Orgnization;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
+use Illuminate\Support\Facades\Validator;
 use App\Image;
 use App\Models\Event;
 use Illuminate\Http\Request;
@@ -212,5 +213,21 @@ class EventController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function deleteGroup(Request $request){
+        $validation = Validator::make($request->all(), [
+            'ids' => 'required|array',
+            'ids.*' => 'exists:events,id',
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->errors(), 422);
+        }
+        
+        $event = Event::
+        whereIn('id', $request->ids)
+        ->delete(); 
+
+        return response()->json(['message' => 'Event deleted successfully'], 200);
     }
 }
