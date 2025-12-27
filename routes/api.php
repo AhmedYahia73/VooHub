@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Admin\EventController;
 use App\Http\Controllers\Api\Admin\LocationController;
 use App\Http\Controllers\Api\Admin\OperationController;
 use App\Http\Controllers\Api\Admin\OrgnizationController;
+use App\Http\Controllers\Api\Admin\EvulationController;
 use App\Http\Controllers\Api\Admin\TaskController;
 use App\Http\Controllers\Api\Admin\PolicyController;
 use App\Http\Controllers\Api\Admin\NotifictionUserController;
@@ -44,12 +45,24 @@ Route::post('/verify-email', [AuthenticationController::class, 'verifyEmail']);
 Route::post('/forget-password', [AuthenticationController::class, 'forgetPassword']);
 Route::get('/user/cityCountryList', [UserLocationController::class, 'GetCity']);
 Route::post('/reset-password', [AuthenticationController::class, 'resetPassword']);
+Route::get('/home/evaluation', [HomePageController::class, 'evaluation']);
 
 
     Route::middleware((['auth:sanctum','IsAdmin']))->group(function () {// UserNewsFeedsController
         Route::get('/admin/policy', [PolicyController::class, 'view']);
         Route::post('/admin/policy/update', [PolicyController::class, 'update']);
 
+///////////////////////////////////////////// Evaluation //////////////////////////////////////////////////
+
+        Route::get('/admin/evaluation', [EvulationController::class, 'view']);
+
+        Route::post('/admin/evaluation/add', [EvulationController::class, 'create']);
+
+        Route::put('/admin/evaluation/update/{id}', [EvulationController::class, 'modify']);
+
+        Route::delete('/admin/evaluation/delete/{id}', [EvulationController::class, 'delete']);
+
+        
 ///////////////////////////////////////////// Notification //////////////////////////////////////////////////
 
         Route::get('/admin/noti/view', [NotificationRequestController::class, 'view']);
