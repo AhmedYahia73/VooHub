@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Evaulation;
 
