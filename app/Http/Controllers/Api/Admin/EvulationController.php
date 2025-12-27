@@ -13,7 +13,8 @@ use App\Image;
 class EvulationController extends Controller
 {
     public function __construct(private Evaulation $evaulation){}
-
+    use Image;
+    
     public function view(Request $request){
         $evaulations = $this->evaulation
         ->get()
