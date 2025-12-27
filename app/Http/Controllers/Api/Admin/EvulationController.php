@@ -14,7 +14,7 @@ class EvulationController extends Controller
 {
     public function __construct(private Evaulation $evaulation){}
     use Image;
-    
+
     public function view(Request $request){
         $evaulations = $this->evaulation
         ->get()
@@ -77,7 +77,7 @@ class EvulationController extends Controller
         ]);
     }
     
-    public function delete(Request $request){
+    public function delete(Request $request, $id){
         $evaluation = $this->evaulation
         ->where("id", $id)
         ->first();
