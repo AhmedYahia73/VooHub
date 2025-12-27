@@ -58,7 +58,7 @@ Route::get('/home/evaluation', [HomePageController::class, 'evaluation']);
 
         Route::post('/admin/evaluation/add', [EvulationController::class, 'create']);
 
-        Route::put('/admin/evaluation/update/{id}', [EvulationController::class, 'modify']);
+        Route::post('/admin/evaluation/update/{id}', [EvulationController::class, 'modify']);
 
         Route::delete('/admin/evaluation/delete/{id}', [EvulationController::class, 'delete']);
 
